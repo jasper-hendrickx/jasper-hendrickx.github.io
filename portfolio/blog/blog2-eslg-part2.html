@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Making ESL Grader - Part 2</title>
+
+  <!-- font awesome cdn link  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <!-- custom css file link -->
+  <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+  <!-- navbar section starts -->
+  <nav class="navbar">
+    <a href="../index.html"> <i class="fas fa-home"></i> <span>home</span> </a>
+    <a href="../portfolio.html"> <i class="fas fa-briefcase"></i> <span>projects</span> </a>
+    <a href="../blog.html"> <i class="fas fa-blog"></i> <span>blog</span> </a>
+    <a href="../contact.html"> <i class="fas fa-address-book"></i> <span>contact</span> </a>
+  </nav>
+
+  <!-- navbar section ends -->
+
+  <!-- blog post section starts  -->
+
+  <section class="blog-post">
+
+    <div class="box-container">
+      <div class="box">
+        <h2 class=>Making ESL Grader - Part 2</h2>
+      </div>
+    </div>
+
+    
+    
+    <div class="box-container">
+      <div class="box">
+        <h3>Iteration and improvement</h3>
+        <p><img src="./blog-images/blog2-eslg-part2/improvement.jpg" alt=""></p>
+        <p>
+          In <a href="/blog/blog1-eslg.html">my previous post</a>, I described how I made the first version of my ESL Grader app to deal with an increased workload. After finishing the app, my own problem was solved, but I knew that my colleagues were still struggling with the same issue. In addition, I also noticed a few things that could be improved, and saw ways the app could still be improved.
+         </p>
+      </div>
+
+
+      <div class="box">
+        <p>
+          So… Time to iterate!
+         </p>
+      </div>
+
+      <div class="box">
+        <p>
+          The first thing I did was to determine my goals for the second version. I decided my primary goal was to make the app usable for my colleagues, this would be my MVP. At the time, there was no real database, so if I wanted to change the feedback text, I had to do it directly in the code. This was not a problem for me as a single user, but it would not do for a larger user base. Secondly, there was only one main rubric. If I wanted multiple users to be able to use the app simultaneously, I needed to make sure that each user had their own rubric that they could customise to suit their own phrasing and personality.
+         </p>
+      </div>
+
+      <div class="box">
+        <p>
+          Based on those requirements, I knew I would need an authentication system and a database. 
+         </p>
+      </div>
+
+      <div class="box">
+        <p>
+          I decided on the MERN stack. MongoDB seemed a perfect choice for the database. Since there was really no relation between the data (just each user with their own individual rubric), a NoSQL database was the better option. Again, time was of the essence, so not having to design a relational schema saved a bunch of development time. Also, the previous app used a JavaScript object literal as a “database”, which is very similar to the way MongoDB’s documents work, which meant I could use the same paradigm for my data.
+         </p>
+      </div>
+      <div class="box">
+        <ol>
+          <li>Node + Express on the backend meant I could just stay in JavaScript for the full stack, which again helped with development time since I didn’t have to switch syntax between frontend and backend.</li>
+          <li>Using React on the frontend made sense because I already had the groundwork from the previous version. </li>
+      </div>
+
+      <div class="box">
+        <p>
+          Beyond the MVP, I wanted to include some extra features that would make the grading workflow smoother and more efficient. For example, one thing I noticed when using the first version was that having a feedback text directly tied to a grade was too inflexible, even when done within categories. A concrete example of this is that for the “fluency” category, 0/5 for fluency was tied to “reading directly from your text” (after all, you’re not fluent if you have can’t do your assignment without reading everything). However, there was still a difference between students who obviously did not study and were reading (with low fluency) and students who did study hard, but were reading due to nervousness (but reading with high fluency). This meant my grading system was too inflexible to account for situations like this, which was something I needed to fix.	
+         </p>
+      </div>
+
+      <div class="box">
+        <p>
+          I decided to split each category object in the database into “main text” and “common errors”, the latter being separate from the main grade and feedback text, to render a more dynamic feedback “report card”, allowing for more diverse feedback options within the same grade. I used an array for the main texts, the index of which would correspond to the grade received. For the “common errors”, I used an object literal, each key would be a type of error, with the value being the feedback text for that error.
+         </p>
+      </div>
+
+      
+      <div class="box">
+        <p>Here’s an example of what that looked like:</p>
+        <p><img src="/blog/blog-images/blog2-eslg-part2/example-database-eslg.png" alt=""></p>
+      </div>
+
+      <div class="box">
+        <p>
+          This approach also took into account any possible scaling afterwards. If I wanted to add the ability for teachers to delete or add new categories, to vary the total points per category, or to customise the common errors object, this would be a straightforward implementation. For now, I kept it to the MVP to maintain focus (and because it would give all of us a common standard to follow).
+         </p>
+      </div>
+
+
+         <div class="box">
+        <p>
+          For some final improvements, I added a “copy to clipboard” button and a “check results” button to make the grading and feedback process a little smoother. My workflow in the first version consisted of grading, scrolling down to the results, then manually selecting the report card, right-clicking and copying it over. It worked well enough for my purposes, but it was clunky and prone to errors. By adding these two buttons and their functionality, I got it down to a 2-click process: finish grading, click “check results”, click “copy to clipboard” (then tab over and do whatever you need to personalise your feedback even further). 
+         </p>
+      </div>
+
+      <div class="box">
+        <p>
+          <a href="../project-demos/eslg.html">Here</a> is a demo of the final result.
+         </p>
+      </div>
+
+      <div class="box">
+        <p>
+          Finally, I deployed the entire app to Heroku and sent the link to my colleagues. Beta testing is now underway.
+         </p>
+      </div>
+
+
+    </div>
+
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- blog post section ends  -->
+
+
+</body>
+</html>
